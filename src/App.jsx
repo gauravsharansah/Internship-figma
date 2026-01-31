@@ -1747,23 +1747,71 @@ function App() {
         }
 
         /* Responsive */
+        @media (max-width: 1200px) {
+          .container {
+            padding: 0 1.5rem;
+          }
+
+          .service-item,
+          .service-item.reverse {
+            gap: 2rem;
+          }
+
+          .case-study-card {
+            right: 1rem;
+            bottom: 1rem;
+            max-width: 250px;
+            padding: 1.5rem;
+          }
+        }
+
         @media (max-width: 1024px) {
           .nav-container {
             padding: 1.5rem 2rem;
           }
 
+          .nav-links {
+            gap: 1.5rem;
+          }
+
+          .nav-links a {
+            font-size: 0.95rem;
+          }
+
+          .hero {
+            padding: 3rem 1.5rem;
+            min-height: 500px;
+          }
+
           .hero-images {
             grid-template-columns: 1fr 1fr;
+            gap: 1rem;
           }
 
           .hero-img-1 {
             grid-row: 1;
-            height: 350px;
+            height: 300px;
+          }
+
+          .hero-img-2,
+          .hero-img-3 {
+            height: 250px;
+          }
+
+          .hero-card {
+            max-width: 500px;
+            padding: 2.5rem;
+            bottom: 1rem;
+          }
+
+          .hero-card h1 {
+            font-size: 1.75rem;
           }
 
           .service-item,
           .service-item.reverse {
             grid-template-columns: 1fr;
+            gap: 2rem;
           }
 
           .service-item.reverse .service-content {
@@ -1774,64 +1822,338 @@ function App() {
             order: 2;
           }
 
+          .service-image img {
+            height: 350px;
+          }
+
+          .case-study-card {
+            position: relative;
+            right: 0;
+            bottom: 0;
+            margin-top: 1.5rem;
+            max-width: 100%;
+          }
+
           .team-card {
             grid-template-columns: 1fr;
           }
 
+          .team-card img {
+            height: 400px;
+          }
+
           .blog-grid {
             grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
           }
 
           .about-hero-images {
             grid-template-columns: 1fr 1fr;
-            height: 400px;
+            height: 350px;
+            gap: 1rem;
+          }
+
+          .about-hero-images img:last-child {
+            display: none;
+          }
+
+          .about-hero-card {
+            max-width: 500px;
+            padding: 2.5rem;
           }
 
           .about-feature,
           .about-feature.reverse {
             grid-template-columns: 1fr;
+            gap: 2rem;
             direction: ltr;
           }
 
-          .footer-top,
+          .about-feature img {
+            height: 300px;
+          }
+
+          .footer-top {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+          }
+
+          .footer-columns {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem 3rem;
+          }
+
           .footer-contact {
             grid-template-columns: 1fr;
+            gap: 2rem;
+          }
+
+          .featured-post {
+            padding: 3rem 1.5rem;
+          }
+
+          .featured-post-card {
+            max-width: 500px;
+            padding: 2.5rem;
+          }
+
+          .blog-hero-card {
+            max-width: 600px;
+            padding: 2.5rem;
+          }
+
+          .blog-hero-card h1 {
+            font-size: 1.9rem;
+          }
+
+          .contact-hero-card {
+            max-width: 500px;
+            padding: 2.5rem;
+          }
+
+          .contact-hero-card h1 {
+            font-size: 2.2rem;
           }
         }
 
         @media (max-width: 768px) {
+          .nav-container {
+            padding: 1.2rem 1.5rem;
+          }
+
+          .logo {
+            width: 150px;
+            height: 50px;
+          }
+
           .nav-links {
             display: none;
           }
 
           .hero {
+            margin-top: 80px;
             padding: 2rem 1rem;
+            min-height: auto;
           }
 
           .hero-images {
             grid-template-columns: 1fr;
+            gap: 1rem;
           }
 
-          .hero-card,
-          .featured-post-card,
-          .contact-hero-card,
-          .blog-hero-card,
-          .about-hero-card {
+          .hero-img-1,
+          .hero-img-2,
+          .hero-img-3 {
+            height: 250px;
+            grid-row: auto;
+          }
+
+          .hero-card {
             position: static;
             transform: none;
-            margin-top: 2rem;
+            margin: 2rem auto 0;
+            padding: 2rem;
+            max-width: 100%;
+          }
+
+          .hero-card h1 {
+            font-size: 1.5rem;
+          }
+
+          .cta-section {
+            padding: 3rem 1rem;
+          }
+
+          .cta-text {
+            font-size: 1.1rem;
+          }
+
+          .services-section {
+            padding: 3rem 1rem;
+          }
+
+          .section-subtitle {
+            font-size: 1.3rem;
+          }
+
+          .service-item {
+            margin-bottom: 4rem;
+          }
+
+          .service-content h3 {
+            font-size: 1.5rem;
+          }
+
+          .service-content p {
+            font-size: 1rem;
+          }
+
+          .service-image img {
+            height: 300px;
+          }
+
+          .team-section {
+            padding: 3rem 1rem;
+          }
+
+          .team-card {
+            padding: 2rem;
+          }
+
+          .team-card img {
+            height: 350px;
+          }
+
+          .blog-preview-section {
+            padding: 3rem 1rem;
+          }
+
+          .blog-intro {
+            font-size: 1rem;
           }
 
           .blog-grid {
             grid-template-columns: 1fr;
+            gap: 2rem;
+          }
+
+          .testimonial-section {
+            padding: 3rem 1rem;
+          }
+
+          .testimonial-section h2 {
+            font-size: 2rem;
+          }
+
+          .testimonial-avatar {
+            width: 100px;
+            height: 100px;
+          }
+
+          .testimonial-card blockquote {
+            font-size: 1.05rem;
+          }
+
+          .footer {
+            padding: 3rem 1rem 2rem;
+          }
+
+          .footer-top {
+            gap: 2rem;
+          }
+
+          .footer-logo {
+            width: 150px;
+            height: 60px;
           }
 
           .footer-columns {
             grid-template-columns: 1fr 1fr;
+            gap: 2rem;
           }
 
-          .form-row {
+          .footer-contact {
+            gap: 2rem;
+          }
+
+          .newsletter-form {
+            flex-direction: column;
+          }
+
+          .newsletter-form button {
+            width: 100%;
+            justify-content: center;
+          }
+
+          /* About Page */
+          .about-hero {
+            margin-top: 80px;
+            padding: 2rem 1rem;
+            min-height: auto;
+          }
+
+          .about-hero-images {
             grid-template-columns: 1fr;
+            height: auto;
+            gap: 1rem;
+          }
+
+          .about-hero-images img {
+            height: 250px;
+          }
+
+          .about-hero-images img:nth-child(3) {
+            display: block;
+          }
+
+          .about-hero-card {
+            position: static;
+            transform: none;
+            margin: 2rem auto 0;
+            padding: 2rem;
+            max-width: 100%;
+          }
+
+          .about-hero-card h1 {
+            font-size: 1.5rem;
+          }
+
+          .about-content {
+            padding: 3rem 1rem;
+          }
+
+          .about-intro {
+            margin-bottom: 3rem;
+          }
+
+          .about-section-text {
+            margin-bottom: 3rem;
+          }
+
+          .large-text {
+            font-size: 1.3rem;
+          }
+
+          .about-feature {
+            margin-bottom: 3rem;
+          }
+
+          .about-feature img {
+            height: 250px;
+          }
+
+          .about-feature-text {
+            padding: 1rem 0;
+          }
+
+          .about-feature-text h3 {
+            font-size: 1.5rem;
+          }
+
+          /* Blog Listing */
+          .featured-post {
+            margin-top: 80px;
+            padding: 2rem 1rem;
+          }
+
+          .featured-img-main {
+            height: 300px;
+          }
+
+          .featured-post-card {
+            position: static;
+            transform: none;
+            margin: 2rem auto 0;
+            padding: 2rem;
+            max-width: 100%;
+          }
+
+          .featured-post-card h1 {
+            font-size: 1.5rem;
+          }
+
+          .blog-grid-section {
+            padding: 3rem 1rem;
           }
 
           .blog-filters {
@@ -1842,6 +2164,200 @@ function App() {
 
           .category-filters {
             flex-wrap: wrap;
+            gap: 0.8rem;
+          }
+
+          .search-sort {
+            width: 100%;
+            flex-direction: column;
+            gap: 0.8rem;
+          }
+
+          .search-box,
+          .sort-select {
+            width: 100%;
+          }
+
+          .pagination {
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            margin-top: 3rem;
+          }
+
+          .page-arrow,
+          .page-num {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.9rem;
+          }
+
+          /* Blog Single */
+          .blog-hero {
+            margin-top: 80px;
+            padding: 2rem 1rem;
+          }
+
+          .blog-hero-image img {
+            height: 300px;
+          }
+
+          .blog-hero-card {
+            position: static;
+            transform: none;
+            margin: 2rem auto 0;
+            padding: 2rem;
+            max-width: 100%;
+          }
+
+          .blog-hero-card h1 {
+            font-size: 1.6rem;
+          }
+
+          .blog-content {
+            padding: 3rem 1rem;
+          }
+
+          .article-intro {
+            font-size: 1.1rem;
+          }
+
+          .blog-content p {
+            font-size: 1rem;
+          }
+
+          .blog-content h2 {
+            font-size: 1.4rem;
+          }
+
+          .article-image {
+            height: 300px;
+            margin: 2rem 0 1rem;
+          }
+
+          .related-posts {
+            padding: 3rem 1rem;
+          }
+
+          /* Contact */
+          .contact-hero {
+            margin-top: 80px;
+            padding: 2rem 1rem;
+          }
+
+          .contact-hero-image img {
+            height: 300px;
+          }
+
+          .contact-hero-card {
+            position: static;
+            transform: none;
+            margin: 2rem auto 0;
+            padding: 2rem;
+            max-width: 100%;
+          }
+
+          .contact-hero-card h1 {
+            font-size: 1.8rem;
+          }
+
+          .contact-form-section {
+            padding: 3rem 1rem;
+          }
+
+          .contact-form-section h2 {
+            font-size: 1.5rem;
+          }
+
+          .form-row {
+            grid-template-columns: 1fr;
+          }
+
+          .form-group input,
+          .form-group textarea,
+          .form-select {
+            font-size: 16px; /* Prevents zoom on iOS */
+          }
+
+          .placeholder-page {
+            margin-top: 100px;
+            padding: 3rem 1rem;
+          }
+
+          .placeholder-page h1 {
+            font-size: 2rem;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .nav-container {
+            padding: 1rem;
+          }
+
+          .logo {
+            width: 130px;
+            height: 45px;
+          }
+
+          .hero-card,
+          .about-hero-card,
+          .featured-post-card,
+          .blog-hero-card,
+          .contact-hero-card {
+            padding: 1.5rem;
+          }
+
+          .hero-card h1,
+          .about-hero-card h1 {
+            font-size: 1.3rem;
+          }
+
+          .btn-primary {
+            padding: 0.8rem 1.5rem;
+            font-size: 0.95rem;
+          }
+
+          .cta-text {
+            font-size: 1rem;
+          }
+
+          .service-content h3 {
+            font-size: 1.3rem;
+          }
+
+          .team-card {
+            padding: 1.5rem;
+          }
+
+          .testimonial-section h2 {
+            font-size: 1.6rem;
+          }
+
+          .footer-columns {
+            grid-template-columns: 1fr;
+          }
+
+          .blog-card h3 {
+            font-size: 1.1rem;
+          }
+
+          .featured-post-card h1 {
+            font-size: 1.3rem;
+          }
+
+          .blog-hero-card h1 {
+            font-size: 1.4rem;
+          }
+
+          .contact-hero-card h1 {
+            font-size: 1.6rem;
+          }
+
+          .pagination {
+            font-size: 0.85rem;
+          }
+
+          .page-arrow,
+          .page-num {
+            padding: 0.3rem 0.6rem;
           }
         }
       `}</style>
