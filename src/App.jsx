@@ -21,6 +21,21 @@ const ArrowRight = ({ size = 20, className = '' }) => (
   </svg>
 );
 
+const Menu = ({ size = 24, className = '' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="3" y1="12" x2="21" y2="12"></line>
+    <line x1="3" y1="6" x2="21" y2="6"></line>
+    <line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+);
+
+const X = ({ size = 24, className = '' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="18" y1="6" x2="6" y2="18"></line>
+    <line x1="6" y1="6" x2="18" y2="18"></line>
+  </svg>
+);
+
 // Router simulation
 const Router = ({ children }) => {
   const [currentPath, setCurrentPath] = useState(window.location.hash.slice(1) || '/');
@@ -53,6 +68,7 @@ const Link = ({ to, children, className = '' }) => (
 // Navigation Component
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -60,21 +76,57 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [mobileMenuOpen]);
+
+  const handleLinkClick = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
     <nav className={`nav ${scrolled ? 'scrolled' : ''}`}>
       <div className="nav-container">
-        <Link to="/" className="logo-link">
+        <Link to="/" className="logo-link" onClick={handleLinkClick}>
           <svg className="logo" viewBox="0 0 150 80" xmlns="http://www.w3.org/2000/svg">
             <path d="M25 15 Q 35 10, 45 25 T 55 40" stroke="currentColor" fill="none" strokeWidth="3"/>
             <text x="20" y="65" fontFamily="serif" fontSize="24" fill="currentColor">allowed Texts</text>
           </svg>
         </Link>
+        
         <div className="nav-links">
           <Link to="/about">About</Link>
           <Link to="/blog">Blog</Link>
           <Link to="/team">Team</Link>
           <Link to="/career">Career</Link>
           <Link to="/contact">Contact</Link>
+        </div>
+
+        <button 
+          className="mobile-menu-btn" 
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      <div className={`mobile-menu ${mobileMenuOpen ? 'active' : ''}`}>
+        <div className="mobile-menu-links">
+          <Link to="/" onClick={handleLinkClick}>Home</Link>
+          <Link to="/about" onClick={handleLinkClick}>About</Link>
+          <Link to="/blog" onClick={handleLinkClick}>Blog</Link>
+          <Link to="/team" onClick={handleLinkClick}>Team</Link>
+          <Link to="/career" onClick={handleLinkClick}>Career</Link>
+          <Link to="/contact" onClick={handleLinkClick}>Contact</Link>
         </div>
       </div>
     </nav>
@@ -164,7 +216,7 @@ const HomePage = () => {
       description: 'Ut pulvinar et quam augue, vestibulum. Donec a convallis odio, ut consequat orci. Integer urna pellen tesque dignissim ac arcu enim.'
     },
     {
-      image: 'https://images.unsplash.com/photo-1485628390555-1a7bd503f9fe?w=800&h=600&fit=crop',
+      image: 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=800&h=600&fit=crop',
       title: 'Arts & Creation',
       description: 'Et odio duis sed, Donec accumsan vehicula orci, auctor cursus mauris. Vivamus consectetur ipsum in magna.'
     }
@@ -426,7 +478,7 @@ const BlogListingPage = () => {
     {
       date: 'JUNE 11, 2021',
       title: 'Some Assembly Required: Documentation in Mars Rover Design',
-      image: 'https://images.unsplash.com/photo-1485628390555-1a7bd503f9fe?w=600&h=400&fit=crop'
+      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=400&fit=crop'
     }
   ];
 
@@ -972,6 +1024,56 @@ function App() {
           width: 100%;
         }
 
+        .mobile-menu-btn {
+          display: none;
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 0.5rem;
+          color: var(--text-dark);
+          z-index: 1001;
+        }
+
+        .mobile-menu {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: var(--cream);
+          transform: translateX(100%);
+          transition: transform 0.3s ease;
+          z-index: 999;
+          padding-top: 100px;
+          overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+          transform: translateX(0);
+        }
+
+        .mobile-menu-links {
+          display: flex;
+          flex-direction: column;
+          padding: 2rem;
+          gap: 0;
+        }
+
+        .mobile-menu-links a {
+          color: var(--text-dark);
+          text-decoration: none;
+          font-size: 1.8rem;
+          font-weight: 500;
+          padding: 1.2rem 0;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+          transition: all 0.3s ease;
+        }
+
+        .mobile-menu-links a:hover {
+          color: var(--teal);
+          padding-left: 1rem;
+        }
+
         /* Container */
         .container {
           max-width: 1200px;
@@ -1152,6 +1254,13 @@ function App() {
           max-width: 300px;
           box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
           z-index: 10;
+        }
+
+        @media (min-width: 1025px) {
+          .case-study-card {
+            bottom: -2rem;
+            right: -2rem;
+          }
         }
 
         .case-study-label {
@@ -2335,6 +2444,10 @@ function App() {
 
           .nav-links {
             display: none;
+          }
+
+          .mobile-menu-btn {
+            display: block;
           }
 
           .hero {
