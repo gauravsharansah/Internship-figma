@@ -654,6 +654,196 @@ const ContactPage = () => (
   </div>
 );
 
+// Team Page
+const TeamPage = () => {
+  const teamMembers = [
+    {
+      name: 'Sarah Johnson',
+      role: 'CEO & Founder',
+      image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=800&fit=crop',
+      bio: 'With over 15 years of experience in the industry, Sarah leads our team with vision and passion.'
+    },
+    {
+      name: 'Michael Chen',
+      role: 'Creative Director',
+      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop',
+      bio: 'Michael brings creative excellence to every project, ensuring our work stands out.'
+    },
+    {
+      name: 'Emily Rodriguez',
+      role: 'Lead Developer',
+      image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&h=800&fit=crop',
+      bio: 'Emily transforms ideas into reality with elegant code and technical expertise.'
+    },
+    {
+      name: 'David Kim',
+      role: 'Marketing Manager',
+      image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&h=800&fit=crop',
+      bio: 'David crafts compelling narratives that connect our brand with audiences worldwide.'
+    },
+    {
+      name: 'Jessica Williams',
+      role: 'UX Designer',
+      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600&h=800&fit=crop',
+      bio: 'Jessica creates intuitive experiences that delight users and drive engagement.'
+    },
+    {
+      name: 'Alex Thompson',
+      role: 'Project Manager',
+      image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&h=800&fit=crop',
+      bio: 'Alex ensures every project runs smoothly from conception to completion.'
+    }
+  ];
+
+  return (
+    <div className="team-page">
+      <section className="page-hero">
+        <div className="container">
+          <h1>Meet Our Team</h1>
+          <p className="hero-subtitle">Talented individuals working together to create amazing experiences</p>
+        </div>
+      </section>
+
+      <section className="team-grid-section">
+        <div className="container">
+          <div className="team-grid">
+            {teamMembers.map((member, index) => (
+              <div key={index} className="team-member-card" style={{ animationDelay: `${index * 0.1}s` }}>
+                <div className="team-member-image">
+                  <img src={member.image} alt={member.name} />
+                </div>
+                <div className="team-member-info">
+                  <h3>{member.name}</h3>
+                  <p className="team-member-role">{member.role}</p>
+                  <p className="team-member-bio">{member.bio}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="cta-section">
+        <div className="container">
+          <p className="cta-text">Interested in joining our team? We're always looking for talented individuals.</p>
+          <Link to="/career" className="btn-primary">
+            View Open Positions <ChevronRight size={20} />
+          </Link>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+// Career Page
+const CareerPage = () => {
+  const openPositions = [
+    {
+      title: 'Senior Frontend Developer',
+      location: 'Remote',
+      type: 'Full-time',
+      description: 'We are looking for an experienced frontend developer to join our team and help build amazing user experiences.'
+    },
+    {
+      title: 'Product Designer',
+      location: 'New York, NY',
+      type: 'Full-time',
+      description: 'Join our design team to create intuitive and beautiful products that users love.'
+    },
+    {
+      title: 'Content Writer',
+      location: 'Remote',
+      type: 'Contract',
+      description: 'Help us craft compelling stories and content that resonates with our audience.'
+    },
+    {
+      title: 'Marketing Specialist',
+      location: 'San Francisco, CA',
+      type: 'Full-time',
+      description: 'Drive our marketing initiatives and help grow our brand presence across multiple channels.'
+    },
+    {
+      title: 'Backend Engineer',
+      location: 'Remote',
+      type: 'Full-time',
+      description: 'Build scalable and reliable backend systems that power our applications.'
+    },
+    {
+      title: 'Customer Success Manager',
+      location: 'Boston, MA',
+      type: 'Full-time',
+      description: 'Ensure our customers have an exceptional experience with our products and services.'
+    }
+  ];
+
+  return (
+    <div className="career-page">
+      <section className="page-hero">
+        <div className="container">
+          <h1>Join Our Team</h1>
+          <p className="hero-subtitle">Build your career with us and make an impact</p>
+        </div>
+      </section>
+
+      <section className="career-benefits">
+        <div className="container">
+          <h2 className="section-label">WHY WORK WITH US</h2>
+          <div className="benefits-grid">
+            <div className="benefit-card">
+              <h3>Flexible Work</h3>
+              <p>Work from anywhere with flexible hours that fit your lifestyle.</p>
+            </div>
+            <div className="benefit-card">
+              <h3>Growth Opportunities</h3>
+              <p>Continuous learning and development programs to advance your career.</p>
+            </div>
+            <div className="benefit-card">
+              <h3>Great Culture</h3>
+              <p>Collaborative environment where your ideas and contributions matter.</p>
+            </div>
+            <div className="benefit-card">
+              <h3>Competitive Pay</h3>
+              <p>Industry-leading compensation and comprehensive benefits package.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="open-positions">
+        <div className="container">
+          <h2 className="section-label">OPEN POSITIONS</h2>
+          <div className="positions-list">
+            {openPositions.map((position, index) => (
+              <div key={index} className="position-card">
+                <div className="position-header">
+                  <div>
+                    <h3>{position.title}</h3>
+                    <div className="position-meta">
+                      <span className="position-location">{position.location}</span>
+                      <span className="position-type">{position.type}</span>
+                    </div>
+                  </div>
+                  <button className="btn-apply">Apply Now</button>
+                </div>
+                <p className="position-description">{position.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="cta-section">
+        <div className="container">
+          <p className="cta-text">Don't see a position that fits? Send us your resume and we'll keep you in mind for future opportunities.</p>
+          <Link to="/contact" className="btn-primary">
+            Get in Touch <ChevronRight size={20} />
+          </Link>
+        </div>
+      </section>
+    </div>
+  );
+};
+
 // Main App
 function App() {
   return (
@@ -677,20 +867,10 @@ function App() {
           <ContactPage />
         </Route>
         <Route path="/team">
-          <div className="placeholder-page">
-            <div className="container">
-              <h1>Team Page</h1>
-              <p>Coming soon...</p>
-            </div>
-          </div>
+          <TeamPage />
         </Route>
         <Route path="/career">
-          <div className="placeholder-page">
-            <div className="container">
-              <h1>Career Page</h1>
-              <p>Coming soon...</p>
-            </div>
-          </div>
+          <CareerPage />
         </Route>
       </Router>
       
@@ -954,6 +1134,7 @@ function App() {
 
         .service-image {
           position: relative;
+          overflow: hidden;
         }
 
         .service-image img {
@@ -970,6 +1151,7 @@ function App() {
           padding: 2rem;
           max-width: 300px;
           box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+          z-index: 10;
         }
 
         .case-study-label {
@@ -1016,6 +1198,7 @@ function App() {
           width: 100%;
           height: 500px;
           object-fit: cover;
+          object-position: center top;
         }
 
         .team-content h3 {
@@ -1734,6 +1917,212 @@ function App() {
           font-weight: 400;
         }
 
+        /* Team Page */
+        .team-page,
+        .career-page {
+          min-height: 100vh;
+        }
+
+        .page-hero {
+          margin-top: 100px;
+          padding: 5rem 2rem;
+          text-align: center;
+          background: white;
+        }
+
+        .page-hero h1 {
+          font-size: 3rem;
+          margin-bottom: 1rem;
+          font-weight: 400;
+        }
+
+        .hero-subtitle {
+          font-size: 1.3rem;
+          color: var(--text-light);
+          max-width: 700px;
+          margin: 0 auto;
+        }
+
+        .team-grid-section {
+          padding: 5rem 2rem;
+        }
+
+        .team-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 3rem;
+        }
+
+        .team-member-card {
+          background: white;
+          overflow: hidden;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          animation: fadeInUp 0.6s ease forwards;
+          opacity: 0;
+        }
+
+        .team-member-card:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .team-member-image {
+          width: 100%;
+          height: 350px;
+          overflow: hidden;
+        }
+
+        .team-member-image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center center;
+          transition: transform 0.3s ease;
+        }
+
+        .team-member-card:hover .team-member-image img {
+          transform: scale(1.05);
+        }
+
+        .team-member-info {
+          padding: 2rem;
+        }
+
+        .team-member-info h3 {
+          font-size: 1.5rem;
+          margin-bottom: 0.5rem;
+          font-weight: 500;
+        }
+
+        .team-member-role {
+          color: var(--navy);
+          font-size: 1rem;
+          margin-bottom: 1rem;
+          font-weight: 500;
+        }
+
+        .team-member-bio {
+          color: var(--text-light);
+          line-height: 1.6;
+        }
+
+        /* Career Page */
+        .career-benefits {
+          padding: 5rem 2rem;
+          background: white;
+        }
+
+        .benefits-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 2rem;
+          margin-top: 3rem;
+        }
+
+        .benefit-card {
+          padding: 2rem;
+          background: var(--cream);
+          transition: transform 0.3s ease;
+        }
+
+        .benefit-card:hover {
+          transform: translateY(-5px);
+        }
+
+        .benefit-card h3 {
+          font-size: 1.3rem;
+          margin-bottom: 1rem;
+          color: var(--navy);
+          font-weight: 500;
+        }
+
+        .benefit-card p {
+          color: var(--text-light);
+          line-height: 1.6;
+        }
+
+        .open-positions {
+          padding: 5rem 2rem;
+        }
+
+        .positions-list {
+          margin-top: 3rem;
+        }
+
+        .position-card {
+          background: white;
+          padding: 2.5rem;
+          margin-bottom: 2rem;
+          border-left: 4px solid var(--navy);
+          transition: all 0.3s ease;
+        }
+
+        .position-card:hover {
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+          transform: translateX(5px);
+        }
+
+        .position-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          margin-bottom: 1rem;
+          gap: 2rem;
+        }
+
+        .position-header h3 {
+          font-size: 1.6rem;
+          margin-bottom: 0.8rem;
+          font-weight: 500;
+        }
+
+        .position-meta {
+          display: flex;
+          gap: 1.5rem;
+          flex-wrap: wrap;
+        }
+
+        .position-location,
+        .position-type {
+          font-size: 0.9rem;
+          color: var(--text-light);
+          display: flex;
+          align-items: center;
+          gap: 0.3rem;
+        }
+
+        .position-location::before {
+          content: "📍";
+        }
+
+        .position-type::before {
+          content: "🕐";
+        }
+
+        .btn-apply {
+          background: var(--navy);
+          color: white;
+          border: none;
+          padding: 0.8rem 1.8rem;
+          font-size: 0.95rem;
+          cursor: pointer;
+          white-space: nowrap;
+          transition: all 0.3s ease;
+          font-family: inherit;
+        }
+
+        .btn-apply:hover {
+          background: var(--teal);
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(45, 101, 105, 0.3);
+        }
+
+        .position-description {
+          color: var(--text-light);
+          line-height: 1.7;
+          font-size: 1.05rem;
+        }
+
         /* Animations */
         @keyframes fadeInUp {
           from {
@@ -1840,6 +2229,24 @@ function App() {
 
           .team-card img {
             height: 400px;
+          }
+
+          .team-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+          }
+
+          .benefits-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+
+          .position-header {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+
+          .btn-apply {
+            width: 100%;
           }
 
           .blog-grid {
@@ -2284,6 +2691,70 @@ function App() {
 
           .placeholder-page h1 {
             font-size: 2rem;
+          }
+
+          /* Team and Career pages mobile */
+          .page-hero {
+            margin-top: 80px;
+            padding: 3rem 1rem;
+          }
+
+          .page-hero h1 {
+            font-size: 2rem;
+          }
+
+          .hero-subtitle {
+            font-size: 1.1rem;
+          }
+
+          .team-grid-section {
+            padding: 3rem 1rem;
+          }
+
+          .team-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+          }
+
+          .team-member-image {
+            height: 300px;
+          }
+
+          .team-member-info {
+            padding: 1.5rem;
+          }
+
+          .team-member-info h3 {
+            font-size: 1.3rem;
+          }
+
+          .career-benefits {
+            padding: 3rem 1rem;
+          }
+
+          .benefits-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+          }
+
+          .benefit-card {
+            padding: 1.5rem;
+          }
+
+          .open-positions {
+            padding: 3rem 1rem;
+          }
+
+          .position-card {
+            padding: 1.5rem;
+          }
+
+          .position-header h3 {
+            font-size: 1.3rem;
+          }
+
+          .position-meta {
+            gap: 1rem;
           }
         }
 
