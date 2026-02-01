@@ -59,14 +59,21 @@ const Router = ({ children }) => {
 
 const Route = ({ path, children }) => children;
 
-const Link = ({ to, children, className = '' }) => (
-  <a href={`#${to}`} className={className} onClick={() => window.scrollTo(0, 0)}>
+const Link = ({ to, children, className = '', onClick }) => (
+  <a 
+    href={`#${to}`} 
+    className={className} 
+    onClick={(e) => {
+      window.scrollTo(0, 0);
+      if (onClick) onClick(e);
+    }}
+  >
     {children}
   </a>
 );
 
 // Navigation Component
-const Navigation = () => {
+/*const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -108,18 +115,19 @@ const Navigation = () => {
           <Link to="/career">Career</Link>
           <Link to="/contact">Contact</Link>
         </div>
+      </div>*/
 
-        <button 
-          className="mobile-menu-btn" 
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
+      {/* Mobile Menu Button - Fixed Position */}
+      /*<button 
+        className="mobile-menu-btn" 
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        aria-label="Toggle menu"
+      >
+        {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>*/
 
       {/* Mobile Menu Overlay */}
-      <div className={`mobile-menu ${mobileMenuOpen ? 'active' : ''}`}>
+     /* <div className={`mobile-menu ${mobileMenuOpen ? 'active' : ''}`}>
         <div className="mobile-menu-links">
           <Link to="/" onClick={handleLinkClick}>Home</Link>
           <Link to="/about" onClick={handleLinkClick}>About</Link>
@@ -131,7 +139,94 @@ const Navigation = () => {
       </div>
     </nav>
   );
+};*/
+
+const Navigation = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
+    return () => document.body.classList.remove('no-scroll');
+  }, [mobileMenuOpen]);
+
+  const toggleMenu = (e) => {
+    e.stopPropagation();
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  const closeMenu = () => setMobileMenuOpen(false);
+
+  return (
+    <>
+      <nav className={`nav ${scrolled ? 'scrolled' : ''}`}>
+        <div className="nav-container">
+          <Link to="/" className="logo-link" onClick={closeMenu}>
+            <svg className="logo" viewBox="0 0 150 80" xmlns="http://www.w3.org/2000/svg">
+              <path d="M25 15 Q 35 10, 45 25 T 55 40" stroke="currentColor" fill="none" strokeWidth="3"/>
+              <text x="20" y="65" fontFamily="serif" fontSize="24" fill="currentColor">allowed Texts</text>
+            </svg>
+          </Link>
+          <div className="nav-links">
+            <Link to="/about" onClick={closeMenu}>About</Link>
+            <Link to="/blog" onClick={closeMenu}>Blog</Link>
+            <Link to="/team" onClick={closeMenu}>Team</Link>
+            <Link to="/career" onClick={closeMenu}>Career</Link>
+            <Link to="/contact" onClick={closeMenu}>Contact</Link>
+          </div>
+        </div>
+
+        {/* Mobile Menu Button */}
+        <button 
+          className="mobile-menu-btn"
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
+        >
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </nav>
+
+      {/* Mobile Menu Overlay - ALWAYS VISIBLE */}
+      <div 
+        className={`mobile-menu ${mobileMenuOpen ? 'active' : ''}`}
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(245, 247, 240, 0.98)',
+          zIndex: 1000000,
+          transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(100%)',
+          transition: 'transform 0.3s ease'
+        }}
+      >
+        <div className="mobile-menu-links">
+          <Link to="/" onClick={closeMenu}>Home</Link>
+          <Link to="/about" onClick={closeMenu}>About</Link>
+          <Link to="/blog" onClick={closeMenu}>Blog</Link>
+          <Link to="/team" onClick={closeMenu}>Team</Link>
+          <Link to="/career" onClick={closeMenu}>Career</Link>
+          <Link to="/contact" onClick={closeMenu}>Contact</Link>
+        </div>
+      </div>
+    </>
+  );
 };
+
+
 
 // Footer Component
 const Footer = () => (
@@ -961,9 +1056,14 @@ function App() {
           top: 0;
           left: 0;
           right: 0;
-          z-index: 1000;
+          z-index: 9999;
           background: var(--cream);
           transition: all 0.3s ease;
+          pointer-events: none;
+        }
+
+        .nav * {
+          pointer-events: auto;
         }
 
         .nav.scrolled {
@@ -980,7 +1080,7 @@ function App() {
           justify-content: space-between;
           align-items: center;
           position: relative;
-          z-index: 1002;
+          isolation: isolate;
         }
 
         .logo {
@@ -991,6 +1091,8 @@ function App() {
 
         .logo-link {
           text-decoration: none;
+          position: relative;
+          z-index: 10001;
         }
 
         .nav-links {
@@ -1028,13 +1130,38 @@ function App() {
 
         .mobile-menu-btn {
           display: none;
-          background: none;
-          border: none;
+          background: var(--cream);
+          border: 2px solid transparent;
           cursor: pointer;
-          padding: 0.5rem;
+          padding: 0.75rem;
           color: var(--text-dark);
-          z-index: 1003;
-          position: relative;
+          position: fixed;
+          right: 1.5rem;
+          top: 1.2rem;
+          z-index: 99999;
+          -webkit-tap-highlight-color: transparent;
+          min-width: 44px;
+          min-height: 44px;
+          align-items: center;
+          justify-content: center;
+          touch-action: manipulation;
+          user-select: none;
+          border-radius: 4px;
+        }
+
+        .nav.scrolled .mobile-menu-btn {
+          background: rgba(245, 247, 240, 0.95);
+        }
+
+        .mobile-menu-btn:active {
+          background: var(--teal);
+          color: white;
+        }
+
+        @media (max-width: 768px) {
+          .mobile-menu-btn {
+            display: flex !important;
+          }
         }
 
         .mobile-menu {
@@ -1046,7 +1173,7 @@ function App() {
           background: var(--cream);
           transform: translateX(100%);
           transition: transform 0.3s ease;
-          z-index: 1001;
+          z-index: 10000;
           padding-top: 100px;
           overflow-y: auto;
         }
@@ -1254,7 +1381,7 @@ function App() {
           right: -2rem;
           background: white;
           padding: 2rem;
-          max-width: 280px;
+          max-width: 300px;
           box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
           z-index: 10;
         }
@@ -1263,7 +1390,7 @@ function App() {
           .case-study-card {
             bottom: -1.5rem;
             right: -1.5rem;
-            max-width: 260px;
+            max-width: 280px;
             padding: 1.8rem;
           }
 
@@ -1324,7 +1451,7 @@ function App() {
           width: 100%;
           height: 500px;
           object-fit: cover;
-          object-position: center top;
+          object-position: center 20%;
         }
 
         .team-content h3 {
@@ -2102,7 +2229,7 @@ function App() {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          object-position: center center;
+          object-position: center 30%;
           transition: transform 0.3s ease;
         }
 
@@ -2275,6 +2402,7 @@ function App() {
           .case-study-card {
             right: 1rem;
             bottom: 1rem;
+            top: auto;
             max-width: 250px;
             padding: 1.5rem;
           }
@@ -2286,11 +2414,11 @@ function App() {
           }
 
           .nav-links {
-            display: none;
+            gap: 1.5rem;
           }
 
-          .mobile-menu-btn {
-            display: block;
+          .nav-links a {
+            font-size: 0.95rem;
           }
 
           .hero {
@@ -2345,6 +2473,7 @@ function App() {
             position: relative;
             right: 0;
             bottom: 0;
+            top: 0;
             margin-top: 1.5rem;
             max-width: 100%;
           }
@@ -2355,11 +2484,20 @@ function App() {
 
           .team-card img {
             height: 400px;
+            object-position: center 25%;
           }
 
           .team-grid {
             grid-template-columns: repeat(2, 1fr);
             gap: 2.5rem;
+          }
+
+          .team-member-image {
+            height: 320px;
+          }
+
+          .team-member-image img {
+            object-position: center 25%;
           }
 
           .benefits-grid {
@@ -2512,7 +2650,7 @@ function App() {
           }
 
           .mobile-menu-btn {
-            display: block;
+            display: flex;
           }
 
           .hero {
@@ -2587,6 +2725,7 @@ function App() {
 
           .team-card img {
             height: 350px;
+            object-position: center 30%;
           }
 
           .blog-preview-section {
@@ -2613,6 +2752,8 @@ function App() {
           .testimonial-avatar {
             width: 100px;
             height: 100px;
+            object-fit: cover;
+            object-position: center 30%;
           }
 
           .testimonial-card blockquote {
@@ -2898,6 +3039,10 @@ function App() {
             height: 300px;
           }
 
+          .team-member-image img {
+            object-position: center 30%;
+          }
+
           .team-member-info {
             padding: 1.5rem;
           }
@@ -3009,6 +3154,53 @@ function App() {
             padding: 0.3rem 0.6rem;
           }
         }
+        /* MOBILE MENU FIX - ADD THIS AT BOTTOM OF CSS */
+body.no-scroll {
+  overflow: hidden !important;
+}
+
+.mobile-menu-btn {
+  display: none !important;
+  position: fixed !important;
+  top: 1.2rem !important;
+  right: 1.5rem !important;
+  z-index: 1000001 !important;
+  background: rgba(245, 247, 240, 0.95) !important;
+  border: none !important;
+  padding: 0.75rem !important;
+  cursor: pointer !important;
+  border-radius: 4px !important;
+  backdrop-filter: blur(10px) !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-btn {
+    display: flex !important;
+  }
+}
+
+.mobile-menu {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: rgba(245, 247, 240, 0.98) !important;
+  z-index: 1000000 !important;
+  transform: translateX(100%) !important;
+  transition: transform 0.3s ease !important;
+  padding-top: 100px !important;
+  overflow-y: auto !important;
+}
+
+.mobile-menu.active {
+  transform: translateX(0) !important;
+}
+
       `}</style>
     </div>
   );
