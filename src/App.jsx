@@ -73,7 +73,7 @@ const Link = ({ to, children, className = '', onClick }) => (
 );
 
 // Navigation Component
-const Navigation = () => {
+/*const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -115,13 +115,89 @@ const Navigation = () => {
           <Link to="/career">Career</Link>
           <Link to="/contact">Contact</Link>
         </div>
+      </div>*/
+
+      {/* Mobile Menu Button - Fixed Position */}
+      /*<button 
+        className="mobile-menu-btn" 
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        aria-label="Toggle menu"
+      >
+        {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>*/
+
+      {/* Mobile Menu Overlay */}
+     /* <div className={`mobile-menu ${mobileMenuOpen ? 'active' : ''}`}>
+        <div className="mobile-menu-links">
+          <Link to="/" onClick={handleLinkClick}>Home</Link>
+          <Link to="/about" onClick={handleLinkClick}>About</Link>
+          <Link to="/blog" onClick={handleLinkClick}>Blog</Link>
+          <Link to="/team" onClick={handleLinkClick}>Team</Link>
+          <Link to="/career" onClick={handleLinkClick}>Career</Link>
+          <Link to="/contact" onClick={handleLinkClick}>Contact</Link>
+        </div>
+      </div>
+    </nav>
+  );
+};*/
+
+const Navigation = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [mobileMenuOpen]);
+
+  const handleLinkClick = () => {
+    setMobileMenuOpen(false);
+  };
+
+  const handleMenuToggle = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  return (
+    <nav className={`nav ${scrolled ? 'scrolled' : ''}`}>
+      <div className="nav-container">
+        <Link to="/" className="logo-link" onClick={handleLinkClick}>
+          <svg className="logo" viewBox="0 0 150 80" xmlns="http://www.w3.org/2000/svg">
+            <path d="M25 15 Q 35 10, 45 25 T 55 40" stroke="currentColor" fill="none" strokeWidth="3"/>
+            <text x="20" y="65" fontFamily="serif" fontSize="24" fill="currentColor">allowed Texts</text>
+          </svg>
+        </Link>
+        <div className="nav-links">
+          <Link to="/about">About</Link>
+          <Link to="/blog">Blog</Link>
+          <Link to="/team">Team</Link>
+          <Link to="/career">Career</Link>
+          <Link to="/contact">Contact</Link>
+        </div>
       </div>
 
       {/* Mobile Menu Button - Fixed Position */}
       <button 
         className="mobile-menu-btn" 
-        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        onClick={handleMenuToggle}
         aria-label="Toggle menu"
+        style={{ pointerEvents: 'auto', zIndex: 100000 }}
       >
         {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
@@ -140,6 +216,7 @@ const Navigation = () => {
     </nav>
   );
 };
+
 
 // Footer Component
 const Footer = () => (
