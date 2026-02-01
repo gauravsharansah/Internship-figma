@@ -59,8 +59,15 @@ const Router = ({ children }) => {
 
 const Route = ({ path, children }) => children;
 
-const Link = ({ to, children, className = '' }) => (
-  <a href={`#${to}`} className={className} onClick={() => window.scrollTo(0, 0)}>
+const Link = ({ to, children, className = '', onClick }) => (
+  <a 
+    href={`#${to}`} 
+    className={className} 
+    onClick={(e) => {
+      window.scrollTo(0, 0);
+      if (onClick) onClick(e);
+    }}
+  >
     {children}
   </a>
 );
@@ -1250,8 +1257,8 @@ function App() {
 
         .case-study-card {
           position: absolute;
-          bottom: -2rem;
-          right: -2rem;
+          top: 2rem;
+          right: 2rem;
           background: white;
           padding: 2rem;
           max-width: 280px;
@@ -1261,8 +1268,8 @@ function App() {
 
         @media (min-width: 1025px) and (max-width: 1400px) {
           .case-study-card {
-            bottom: -1.5rem;
-            right: -1.5rem;
+            top: 2rem;
+            right: 1.5rem;
             max-width: 260px;
             padding: 1.8rem;
           }
@@ -1274,8 +1281,8 @@ function App() {
 
         @media (min-width: 1401px) {
           .case-study-card {
-            bottom: -2.5rem;
-            right: -2.5rem;
+            top: 2.5rem;
+            right: 2.5rem;
             max-width: 320px;
           }
         }
@@ -2275,6 +2282,7 @@ function App() {
           .case-study-card {
             right: 1rem;
             bottom: 1rem;
+            top: auto;
             max-width: 250px;
             padding: 1.5rem;
           }
@@ -2286,11 +2294,11 @@ function App() {
           }
 
           .nav-links {
-            display: none;
+            gap: 1.5rem;
           }
 
-          .mobile-menu-btn {
-            display: block;
+          .nav-links a {
+            font-size: 0.95rem;
           }
 
           .hero {
@@ -2345,6 +2353,7 @@ function App() {
             position: relative;
             right: 0;
             bottom: 0;
+            top: 0;
             margin-top: 1.5rem;
             max-width: 100%;
           }
