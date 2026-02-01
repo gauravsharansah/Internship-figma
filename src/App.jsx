@@ -968,7 +968,7 @@ function App() {
           top: 0;
           left: 0;
           right: 0;
-          z-index: 1000;
+          z-index: 1003;
           background: var(--cream);
           transition: all 0.3s ease;
         }
@@ -987,7 +987,7 @@ function App() {
           justify-content: space-between;
           align-items: center;
           position: relative;
-          z-index: 1002;
+          z-index: 1006;
         }
 
         .logo {
@@ -1040,7 +1040,7 @@ function App() {
           cursor: pointer;
           padding: 0.5rem;
           color: var(--text-dark);
-          z-index: 1003;
+          z-index: 1005;
           position: relative;
         }
 
@@ -1053,7 +1053,7 @@ function App() {
           background: var(--cream);
           transform: translateX(100%);
           transition: transform 0.3s ease;
-          z-index: 1001;
+          z-index: 1004;
           padding-top: 100px;
           overflow-y: auto;
         }
@@ -1257,20 +1257,20 @@ function App() {
 
         .case-study-card {
           position: absolute;
-          top: 2rem;
-          right: 2rem;
+          bottom: -2rem;
+          right: -2rem;
           background: white;
           padding: 2rem;
-          max-width: 280px;
+          max-width: 300px;
           box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
           z-index: 10;
         }
 
         @media (min-width: 1025px) and (max-width: 1400px) {
           .case-study-card {
-            top: 2rem;
-            right: 1.5rem;
-            max-width: 260px;
+            bottom: -1.5rem;
+            right: -1.5rem;
+            max-width: 280px;
             padding: 1.8rem;
           }
 
@@ -1281,8 +1281,8 @@ function App() {
 
         @media (min-width: 1401px) {
           .case-study-card {
-            top: 2.5rem;
-            right: 2.5rem;
+            bottom: -2.5rem;
+            right: -2.5rem;
             max-width: 320px;
           }
         }
@@ -1331,7 +1331,7 @@ function App() {
           width: 100%;
           height: 500px;
           object-fit: cover;
-          object-position: center top;
+          object-position: center 20%;
         }
 
         .team-content h3 {
@@ -2109,7 +2109,7 @@ function App() {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          object-position: center center;
+          object-position: center 30%;
           transition: transform 0.3s ease;
         }
 
@@ -2364,11 +2364,20 @@ function App() {
 
           .team-card img {
             height: 400px;
+            object-position: center 25%;
           }
 
           .team-grid {
             grid-template-columns: repeat(2, 1fr);
             gap: 2.5rem;
+          }
+
+          .team-member-image {
+            height: 320px;
+          }
+
+          .team-member-image img {
+            object-position: center 25%;
           }
 
           .benefits-grid {
@@ -2596,6 +2605,7 @@ function App() {
 
           .team-card img {
             height: 350px;
+            object-position: center 30%;
           }
 
           .blog-preview-section {
@@ -2622,6 +2632,8 @@ function App() {
           .testimonial-avatar {
             width: 100px;
             height: 100px;
+            object-fit: cover;
+            object-position: center 30%;
           }
 
           .testimonial-card blockquote {
@@ -2905,6 +2917,10 @@ function App() {
 
           .team-member-image {
             height: 300px;
+          }
+
+          .team-member-image img {
+            object-position: center 30%;
           }
 
           .team-member-info {
