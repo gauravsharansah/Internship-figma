@@ -155,67 +155,77 @@ const Navigation = () => {
 
   useEffect(() => {
     if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.classList.add('no-scroll');
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.classList.remove('no-scroll');
     }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
+    return () => document.body.classList.remove('no-scroll');
   }, [mobileMenuOpen]);
 
-  const handleLinkClick = () => {
-    setMobileMenuOpen(false);
-  };
-
-  const handleMenuToggle = (e) => {
+  const toggleMenu = (e) => {
     e.stopPropagation();
-    e.preventDefault();
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
+  const closeMenu = () => setMobileMenuOpen(false);
+
   return (
-    <nav className={`nav ${scrolled ? 'scrolled' : ''}`}>
-      <div className="nav-container">
-        <Link to="/" className="logo-link" onClick={handleLinkClick}>
-          <svg className="logo" viewBox="0 0 150 80" xmlns="http://www.w3.org/2000/svg">
-            <path d="M25 15 Q 35 10, 45 25 T 55 40" stroke="currentColor" fill="none" strokeWidth="3"/>
-            <text x="20" y="65" fontFamily="serif" fontSize="24" fill="currentColor">allowed Texts</text>
-          </svg>
-        </Link>
-        <div className="nav-links">
-          <Link to="/about">About</Link>
-          <Link to="/blog">Blog</Link>
-          <Link to="/team">Team</Link>
-          <Link to="/career">Career</Link>
-          <Link to="/contact">Contact</Link>
+    <>
+      <nav className={`nav ${scrolled ? 'scrolled' : ''}`}>
+        <div className="nav-container">
+          <Link to="/" className="logo-link" onClick={closeMenu}>
+            <svg className="logo" viewBox="0 0 150 80" xmlns="http://www.w3.org/2000/svg">
+              <path d="M25 15 Q 35 10, 45 25 T 55 40" stroke="currentColor" fill="none" strokeWidth="3"/>
+              <text x="20" y="65" fontFamily="serif" fontSize="24" fill="currentColor">allowed Texts</text>
+            </svg>
+          </Link>
+          <div className="nav-links">
+            <Link to="/about" onClick={closeMenu}>About</Link>
+            <Link to="/blog" onClick={closeMenu}>Blog</Link>
+            <Link to="/team" onClick={closeMenu}>Team</Link>
+            <Link to="/career" onClick={closeMenu}>Career</Link>
+            <Link to="/contact" onClick={closeMenu}>Contact</Link>
+          </div>
         </div>
-      </div>
 
-      {/* Mobile Menu Button - Fixed Position */}
-      <button 
-        className="mobile-menu-btn" 
-        onClick={handleMenuToggle}
-        aria-label="Toggle menu"
-        style={{ pointerEvents: 'auto', zIndex: 100000 }}
+        {/* Mobile Menu Button */}
+        <button 
+          className="mobile-menu-btn"
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
+        >
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </nav>
+
+      {/* Mobile Menu Overlay - ALWAYS VISIBLE */}
+      <div 
+        className={`mobile-menu ${mobileMenuOpen ? 'active' : ''}`}
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(245, 247, 240, 0.98)',
+          zIndex: 1000000,
+          transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(100%)',
+          transition: 'transform 0.3s ease'
+        }}
       >
-        {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-      </button>
-
-      {/* Mobile Menu Overlay */}
-      <div className={`mobile-menu ${mobileMenuOpen ? 'active' : ''}`}>
         <div className="mobile-menu-links">
-          <Link to="/" onClick={handleLinkClick}>Home</Link>
-          <Link to="/about" onClick={handleLinkClick}>About</Link>
-          <Link to="/blog" onClick={handleLinkClick}>Blog</Link>
-          <Link to="/team" onClick={handleLinkClick}>Team</Link>
-          <Link to="/career" onClick={handleLinkClick}>Career</Link>
-          <Link to="/contact" onClick={handleLinkClick}>Contact</Link>
+          <Link to="/" onClick={closeMenu}>Home</Link>
+          <Link to="/about" onClick={closeMenu}>About</Link>
+          <Link to="/blog" onClick={closeMenu}>Blog</Link>
+          <Link to="/team" onClick={closeMenu}>Team</Link>
+          <Link to="/career" onClick={closeMenu}>Career</Link>
+          <Link to="/contact" onClick={closeMenu}>Contact</Link>
         </div>
       </div>
-    </nav>
+    </>
   );
 };
+
 
 
 // Footer Component
@@ -3144,6 +3154,53 @@ function App() {
             padding: 0.3rem 0.6rem;
           }
         }
+        /* MOBILE MENU FIX - ADD THIS AT BOTTOM OF CSS */
+body.no-scroll {
+  overflow: hidden !important;
+}
+
+.mobile-menu-btn {
+  display: none !important;
+  position: fixed !important;
+  top: 1.2rem !important;
+  right: 1.5rem !important;
+  z-index: 1000001 !important;
+  background: rgba(245, 247, 240, 0.95) !important;
+  border: none !important;
+  padding: 0.75rem !important;
+  cursor: pointer !important;
+  border-radius: 4px !important;
+  backdrop-filter: blur(10px) !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-btn {
+    display: flex !important;
+  }
+}
+
+.mobile-menu {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: rgba(245, 247, 240, 0.98) !important;
+  z-index: 1000000 !important;
+  transform: translateX(100%) !important;
+  transition: transform 0.3s ease !important;
+  padding-top: 100px !important;
+  overflow-y: auto !important;
+}
+
+.mobile-menu.active {
+  transform: translateX(0) !important;
+}
+
       `}</style>
     </div>
   );
