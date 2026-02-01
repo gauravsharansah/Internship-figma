@@ -115,15 +115,16 @@ const Navigation = () => {
           <Link to="/career">Career</Link>
           <Link to="/contact">Contact</Link>
         </div>
-
-        <button 
-          className="mobile-menu-btn" 
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
       </div>
+
+      {/* Mobile Menu Button - Fixed Position */}
+      <button 
+        className="mobile-menu-btn" 
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        aria-label="Toggle menu"
+      >
+        {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
 
       {/* Mobile Menu Overlay */}
       <div className={`mobile-menu ${mobileMenuOpen ? 'active' : ''}`}>
@@ -968,9 +969,14 @@ function App() {
           top: 0;
           left: 0;
           right: 0;
-          z-index: 1003;
+          z-index: 9999;
           background: var(--cream);
           transition: all 0.3s ease;
+          pointer-events: none;
+        }
+
+        .nav * {
+          pointer-events: auto;
         }
 
         .nav.scrolled {
@@ -987,7 +993,7 @@ function App() {
           justify-content: space-between;
           align-items: center;
           position: relative;
-          z-index: 1006;
+          isolation: isolate;
         }
 
         .logo {
@@ -998,6 +1004,8 @@ function App() {
 
         .logo-link {
           text-decoration: none;
+          position: relative;
+          z-index: 10001;
         }
 
         .nav-links {
@@ -1035,13 +1043,38 @@ function App() {
 
         .mobile-menu-btn {
           display: none;
-          background: none;
-          border: none;
+          background: var(--cream);
+          border: 2px solid transparent;
           cursor: pointer;
-          padding: 0.5rem;
+          padding: 0.75rem;
           color: var(--text-dark);
-          z-index: 1005;
-          position: relative;
+          position: fixed;
+          right: 1.5rem;
+          top: 1.2rem;
+          z-index: 99999;
+          -webkit-tap-highlight-color: transparent;
+          min-width: 44px;
+          min-height: 44px;
+          align-items: center;
+          justify-content: center;
+          touch-action: manipulation;
+          user-select: none;
+          border-radius: 4px;
+        }
+
+        .nav.scrolled .mobile-menu-btn {
+          background: rgba(245, 247, 240, 0.95);
+        }
+
+        .mobile-menu-btn:active {
+          background: var(--teal);
+          color: white;
+        }
+
+        @media (max-width: 768px) {
+          .mobile-menu-btn {
+            display: flex !important;
+          }
         }
 
         .mobile-menu {
@@ -1053,7 +1086,7 @@ function App() {
           background: var(--cream);
           transform: translateX(100%);
           transition: transform 0.3s ease;
-          z-index: 1004;
+          z-index: 10000;
           padding-top: 100px;
           overflow-y: auto;
         }
@@ -2530,7 +2563,7 @@ function App() {
           }
 
           .mobile-menu-btn {
-            display: block;
+            display: flex;
           }
 
           .hero {
